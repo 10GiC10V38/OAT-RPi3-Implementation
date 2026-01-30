@@ -1,0 +1,21 @@
+# --- Build Artifacts ---
+*.o
+*.so
+*.a
+*.ll
+*.bc
+*.elf
+*.dmp
+*.map
+*.stripped.elf
+*.lds
+
+# --- Binaries ---
+*.ta
+drone_app
+host/drone_app
+
+# --- Temporary/System Files ---
+.DS_Store
+*~
+*.swp
