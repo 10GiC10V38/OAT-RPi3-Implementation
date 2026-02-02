@@ -23,7 +23,7 @@ The system enforces **Control Flow Integrity (CFI)** on a "Drone Controller" app
 │   ├── liboat.c            # The Trampoline Library (Talks to TrustZone)
 │   └── build_rpi.sh        # Cross-compilation script
 └── screenshots/            # Proof of execution and attack simulation
-
+```
 
 ## Prerequisites
 
