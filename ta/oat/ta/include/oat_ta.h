@@ -2,6 +2,8 @@
 #ifndef OAT_TA_H  /* <--- CHANGED FROM USER_TA_HEADER_DEFINES_H */
 #define OAT_TA_H
 
+
+
 /* The UUID */
 #define TA_OAT_UUID \
     { 0x92b192d1, 0x9686, 0x424a, \
@@ -13,8 +15,12 @@
 #define CMD_HASH_FINAL   6
 #define CMD_STACK_PUSH   0x10
 #define CMD_STACK_POP    0x11
+#define CMD_INDIRECT_CALL 0x12
+#define CMD_GET_LOG       0x13
 
-/* NOTE: TA_FLAGS, STACK_SIZE, etc. removed from here 
-   because they belong in user_ta_header_defines.h */
+/* Log Tags (for parsing the binary) */
+#define TAG_BRANCH        0x01
+#define TAG_INDIRECT      0x02
+#define TAG_STACK_POP     0x03
 
 #endif /* OAT_TA_H */
