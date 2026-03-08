@@ -15,6 +15,17 @@
 drone_app
 host/drone_app
 
+# --- Reference Source Tree (414MB LLVM source, not pushed) ---
+reference/
+
+# --- Local build outputs ---
+host/syringe/syringe_count
+host/syringe/syringe_app
+host/syringe/syringe_native.o
+host/syringe/liboat_counter.o
+host/syringe/liboat.o
+host/syringe/syringe.o
+
 # --- Temporary/System Files ---
 .DS_Store
 *~

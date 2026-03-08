@@ -43,7 +43,9 @@ void TA_CloseSessionEntryPoint(void *sess_ctx) {
 /* --- Helpers --- */
 
 static TEE_Result init_session(oat_session_ctx *ctx) {
-    ctx->stack_ptr = 0;
+    /* NOTE: Do NOT reset stack_ptr here. The shadow stack must persist
+     * across the entire program lifetime for ROP detection. Only the
+     * hash and log reset per-operation. */
     ctx->log_idx = 0; // Reset Log
     
     if (ctx->op_handle != TEE_HANDLE_NULL) TEE_FreeOperation(ctx->op_handle);
@@ -101,7 +103,7 @@ TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx, uint32_t cmd_id,
             TEE_DigestUpdate(ctx->op_handle, params[0].memref.buffer, params[0].memref.size);
             
             // Log it
-            append_log(ctx, TAG_BRANCH, params[0].memref.buffer, params[0].memref.size);
+       //     append_log(ctx, TAG_BRANCH, params[0].memref.buffer, params[0].memref.size);
             return TEE_SUCCESS;
 
         case CMD_HASH_FINAL:
@@ -134,8 +136,9 @@ TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx, uint32_t cmd_id,
             }
             update_running_hash(ctx, &val, sizeof(uint32_t));
             
-            // Log the return event
-            append_log(ctx, TAG_STACK_POP, &val, sizeof(uint32_t));
+            // Per paper design: returns are captured in the hash only,
+            // NOT in the trace (they happen too frequently and overflow the buffer).
+            // append_log(ctx, TAG_STACK_POP, &val, sizeof(uint32_t));
             return TEE_SUCCESS;
 
         // 4. INDIRECT JUMP (Logged!)
@@ -149,7 +152,7 @@ TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx, uint32_t cmd_id,
             update_running_hash(ctx, &addr_target, sizeof(uint64_t));
             
             // Log the target address
-            append_log(ctx, TAG_INDIRECT, &addr_target, sizeof(uint64_t));
+      //      append_log(ctx, TAG_INDIRECT, &addr_target, sizeof(uint64_t));
             return TEE_SUCCESS;
 
         // 5. GET LOG (Export to Host)
