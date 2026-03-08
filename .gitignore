@@ -1,4 +1,4 @@
-# --- Build Artifacts ---
+# Build artifacts
 *.o
 *.so
 *.a
@@ -9,24 +9,20 @@
 *.map
 *.stripped.elf
 *.lds
+.*.cmd
+.*.d
 
-# --- Binaries ---
+# Compiled binaries
 *.ta
 drone_app
 host/drone_app
+host/syringe/syringe_app
+host/syringe/syringe_count
 
-# --- Reference Source Tree (414MB LLVM source, not pushed) ---
+# Reference source tree (414MB, not pushed)
 reference/
 
-# --- Local build outputs ---
-host/syringe/syringe_count
-host/syringe/syringe_app
-host/syringe/syringe_native.o
-host/syringe/liboat_counter.o
-host/syringe/liboat.o
-host/syringe/syringe.o
-
-# --- Temporary/System Files ---
+# System files
 .DS_Store
 *~
 *.swp
